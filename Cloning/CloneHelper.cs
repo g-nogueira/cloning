@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -27,43 +22,45 @@ namespace Cloning
             {
                 label1.Text = "Backing up, please wait";
             }
+
             if (_Type == CloneType.Restore)
             {
                 label1.Text = "Restoring, please wait";
             }
         }
 
-        private void CloningAnimation()
+        private async Task CloningAnimation()
         {
-            if (_Type == CloneType.Backup)
+            switch (_Type)
             {
-                foreach (Addon a in _Main.selectedAddons)
+                case CloneType.Backup:
                 {
-                    a.Backup(_Main.CurrentBackupPath);
-                }
+                    var backupTasks =
+                        _Main.selectedAddons.Select(a => Task.Run(() => a.Backup(_Main.CurrentBackupPath)));
+                    await Task.WhenAll(backupTasks);
 
-                this.Close();
-            }
-            if (_Type == CloneType.Restore)
-            {
-                foreach (Addon a in _Main.selectedAddons)
+                    Close();
+                    break;
+                }
+                case CloneType.Restore:
                 {
-                    a.Restore(_Main.CurrentRestorePath);
-                }
+                    var restoreTasks =
+                        _Main.selectedAddons.Select(a => Task.Run(() => a.Restore(_Main.CurrentRestorePath)));
+                    await Task.WhenAll(restoreTasks);
 
-                this.Close();
+                    Close();
+                    break;
+                }
             }
         }
+
 
         private void CloneHelper_Load(object sender, EventArgs e)
         {
             CheckForIllegalCrossThreadCalls = false;
             dotter.Start();
-
-            Task t = new Task(() => CloningAnimation());
-            t.Start();
-
-            this.BringToFront();
+            CloningAnimation();
+            BringToFront();
         }
 
         private void dotter_Tick(object sender, EventArgs e)
