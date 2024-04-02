@@ -63,15 +63,22 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Addon.cs" />
-    <Compile Include="ByteSize.cs" />
+    <Compile Include="Addon.cs"/>
+    <Compile Include="Addons\Bazarr.cs"/>
+    <Compile Include="Addons\Plex.cs"/>
+    <Compile Include="Addons\PowerToys.cs"/>
+    <Compile Include="Addons\Prowlarr.cs"/>
+    <Compile Include="Addons\Radarr.cs"/>
+    <Compile Include="Addons\RRAddon.cs"/>
+    <Compile Include="Addons\Sonarr.cs"/>
+    <Compile Include="ByteSize.cs"/>
     <Compile Include="CloneHelper.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CloneHelper.Designer.cs">
       <DependentUpon>CloneHelper.cs</DependentUpon>
     </Compile>
-    <Compile Include="DriverInfo.cs" />
+    <Compile Include="DriverInfo.cs"/>
     <Compile Include="DriversForm.cs">
       <SubType>Form</SubType>
     </Compile>
