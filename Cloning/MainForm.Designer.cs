@@ -191,45 +191,7 @@
             this.applist.Dock = System.Windows.Forms.DockStyle.Fill;
             this.applist.ForeColor = System.Drawing.Color.White;
             this.applist.FormattingEnabled = true;
-            this.applist.Items.AddRange(new object[] {
-            "7-Zip",
-            "Adobe Photoshop",
-            "Adobe Reader",
-            "AnyDesk",
-            "BitTorrent",
-            "BSPlayer",
-            "CCleaner",
-            "Classic Shell",
-            "FileZilla",
-            "Foobar2000",
-            "Google Chrome",
-            "IrfanView",
-            "JDownloader 2",
-            "LibreOffice",
-            "Malwarebytes Anti-Malware",
-            "Maxthon Cloud Browser",
-            "Mozilla Firefox",
-            "Mozilla Thunderbird",
-            "Notepad++",
-            "OpenOffice",
-            "Opera Browser",
-            "PuTTY",
-            "qBitTorrent",
-            "Skype",
-            "Speccy",
-            "Steam",
-            "Sublime Text",
-            "SumatraPDF",
-            "TeamSpeak",
-            "TeamViewer",
-            "TeraCopy",
-            "uTorrent",
-            "Vivaldi Browser",
-            "VLC Media Player",
-            "Winamp",
-            "WinRAR",
-            "WinZip",
-            "WireShark"});
+            this.addons.ForEach(a => this.applist.Items.Add(a.Title));
             this.applist.Location = new System.Drawing.Point(0, 0);
             this.applist.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.applist.Name = "applist";

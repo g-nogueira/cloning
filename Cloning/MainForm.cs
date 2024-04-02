@@ -83,12 +83,6 @@ namespace Cloning
             return bitness;
         }
 
-        public MainForm()
-        {
-            InitializeComponent();
-            Options.ApplyTheme(this);
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (applist.CheckedItems.Count > 0)
@@ -161,7 +155,6 @@ namespace Cloning
             lblversion.Text = "Version: " + Program.GetCurrentVersionToString();
             lblos.Text = "Microsoft " + GetOS();
             lblbitness.Text = GetBitness();
-            InitializeAddons();
 
             if (applist.Items.Count > 0)
             {
