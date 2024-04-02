@@ -54,7 +54,7 @@ namespace Cloning
         }
     }
 
-    public class AnyDesk: Addon
+    public class AnyDesk : Addon
     {
         public AnyDesk()
         {
@@ -87,6 +87,7 @@ namespace Cloning
             Title = "7-Zip";
             Info = "Backup 7-Zip configuration";
         }
+
         public string Key = @"HKEY_CURRENT_USER\SOFTWARE\7-Zip";
 
         public override bool IsInstalled()
@@ -95,7 +96,7 @@ namespace Cloning
         }
 
         public override void Backup(string path)
-        {  
+        {
             Utilities.PortRegistryKey(path + Title + ".reg", Key, false);
         }
 
@@ -130,7 +131,8 @@ namespace Cloning
             Folders.Add(Utilities.RoamingAppData + @"\Adobe\Save For Web\12.0");
             Folders.Add(Utilities.RoamingAppData + @"\Adobe\LensCorrection\1.0\Settings");
             Folders.Add(Utilities.RoamingAppData + @"\Adobe\Plugins");
-            Folders.Add(Utilities.RoamingAppData + @"\Adobe\Adobe Photoshop CS5\Adobe Photoshop CS5 Settings\Workspaces");
+            Folders.Add(
+                Utilities.RoamingAppData + @"\Adobe\Adobe Photoshop CS5\Adobe Photoshop CS5 Settings\Workspaces");
 
             Keys.Add(@"HKEY_CURRENT_USER\Software\Adobe\Camera Raw\6.0");
             Keys.Add(@"HKEY_CURRENT_USER\Software\Adobe\Photoshop\11.0");
@@ -169,6 +171,7 @@ namespace Cloning
             {
                 Utilities.PortRegistryKey(path + Title + ".reg", k, false);
             }
+
             foreach (string f in Folders)
             {
                 Utilities.CopyFolder(f, path + Title);
@@ -181,6 +184,7 @@ namespace Cloning
             {
                 Utilities.PortRegistryKey(path + Title + ".reg", k, true);
             }
+
             foreach (string f in Folders)
             {
                 Utilities.CopyFolder(path + Title, f);
@@ -222,7 +226,7 @@ namespace Cloning
             Title = "BitTorrent";
             Info = "Backup BitTorrent settings";
         }
- 
+
         public string Folder = Utilities.RoamingAppData + @"\BitTorrent";
 
         public override bool IsInstalled()
@@ -1033,7 +1037,7 @@ namespace Cloning
             Title = "SumatraPDF";
             Info = "Backup SumatraPDF settings";
         }
- 
+
         public string file = Utilities.RoamingAppData + @"\SumatraPDF\SumatraPDF-settings.txt";
 
         public override bool IsInstalled()
@@ -1059,7 +1063,7 @@ namespace Cloning
             Title = "TeamSpeak";
             Info = "Backup TeamSpeak configuration";
         }
-      
+
         public string Folder = Utilities.RoamingAppData + @"\TS3Client";
 
         public override bool IsInstalled()
@@ -1085,7 +1089,7 @@ namespace Cloning
             Title = "TeamViewer";
             Info = "Backup TeamViewer configuration";
         }
-       
+
         public string Key = @"HKEY_CURRENT_USER\Software\TeamViewer";
 
         public override bool IsInstalled()
@@ -1111,7 +1115,7 @@ namespace Cloning
             Title = "TeraCopy";
             Info = "Backup TeraCopy configuration";
         }
-       
+
         public string Folder = Utilities.RoamingAppData + @"\Teracopy";
 
         public override bool IsInstalled()
@@ -1139,7 +1143,7 @@ namespace Cloning
 
             Fill();
         }
-       
+
         public List<string> Files = new List<string>();
 
         public void Fill()
@@ -1195,7 +1199,7 @@ namespace Cloning
             Title = "Vivaldi Browser";
             Info = "Backup Vivaldi Browser profile";
         }
-        
+
         public string Folder = Utilities.LocalAppData + @"\Vivaldi\User Data\Default";
 
         public override bool IsInstalled()
@@ -1221,7 +1225,7 @@ namespace Cloning
             Title = "VLC Media Player";
             Info = "Backup VLC Media Player settings";
         }
-        
+
         public string file = Utilities.RoamingAppData + @"\vlc\vlcrc";
 
         public override bool IsInstalled()
@@ -1247,7 +1251,7 @@ namespace Cloning
             Title = "Winamp";
             Info = "Backup Winamp configuration";
         }
-        
+
         public string Folder = Utilities.RoamingAppData + @"\Winamp";
 
         public override bool IsInstalled()
@@ -1275,7 +1279,7 @@ namespace Cloning
 
             Fill();
         }
-        
+
         public string Folder = Utilities.RoamingAppData + @"\WinRAR";
         public string Key = @"HKEY_CURRENT_USER\Software\WinRAR";
         public List<string> Files = new List<string>();
@@ -1334,7 +1338,7 @@ namespace Cloning
             Title = "WinZip";
             Info = "Backup WinZip configuration";
         }
-     
+
         public string Key = @"HKEY_CURRENT_USER\Software\Nico Mak Computing\WinZip";
 
         public override bool IsInstalled()
@@ -1362,7 +1366,7 @@ namespace Cloning
 
             Fill();
         }
-        
+
         public string Key = @"HKEY_CURRENT_USER\Software\Wireshark\WinSparkle Settings";
         public List<string> Files = new List<string>();
         public List<string> Folders = new List<string>();
@@ -1455,4 +1459,3 @@ namespace Cloning
         }
     }
 }
-
