@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using Microsoft.Win32;
 using System.Diagnostics;
-using System.Windows.Forms;
+using System.IO;
 using System.Reflection;
+using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace Cloning
 {
@@ -21,17 +17,17 @@ namespace Cloning
         internal static string Documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
         internal static string Now = DateTime.Now.ToLongDateString() + " - " + DateTime.Now.ToLongTimeString();
-        internal static string NowShort = (DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToShortTimeString()).Replace("/", "-").Replace(":", ".");
 
-        private delegate void SetControlPropertyThreadSafeDelegate(Control control, string propertyName, object propertyValue);
+        internal static string NowShort = (DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToShortTimeString())
+            .Replace("/", "-").Replace(":", ".");
 
         internal static void SetControlPropertyThreadSafe(Control control, string propertyName, object propertyValue)
         {
             if (control.InvokeRequired)
             {
                 control.Invoke(new SetControlPropertyThreadSafeDelegate
-                (SetControlPropertyThreadSafe),
-                new object[] { control, propertyName, propertyValue });
+                        (SetControlPropertyThreadSafe),
+                    new object[] { control, propertyName, propertyValue });
             }
             else
             {
@@ -51,28 +47,25 @@ namespace Cloning
 
         internal static void CopyFolder(string source, string destination)
         {
-            try
+            if (!Directory.Exists(destination))
             {
-                foreach (string folder in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
-                {
-                    Directory.CreateDirectory(folder.Replace(source, destination));
-                }
-
-                foreach (string file in Directory.GetFiles(source, "*.*", SearchOption.AllDirectories))
-                {
-                    File.Copy(file, file.Replace(source, destination), true);
-                }
+                Directory.CreateDirectory(destination);
             }
-            catch { }
+
+            foreach (string folder in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
+            {
+                Directory.CreateDirectory(folder.Replace(source, destination));
+            }
+
+            foreach (string file in Directory.GetFiles(source, "*.*", SearchOption.AllDirectories))
+            {
+                File.Copy(file, file.Replace(source, destination), true);
+            }
         }
 
         internal static void CopyFile(string source, string destination)
         {
-            try
-            {
-                File.Copy(source, destination, true);
-            }
-            catch { }
+            File.Copy(source, destination, true);
         }
 
         internal static void PortRegistryKey(string filePath, string registryPath, bool import)
@@ -123,5 +116,8 @@ namespace Cloning
 
             return keyExists;
         }
+
+        private delegate void SetControlPropertyThreadSafeDelegate(Control control, string propertyName,
+            object propertyValue);
     }
 }
