@@ -18,6 +18,7 @@ namespace Cloning
         internal static string ProgramFilesX86 = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
         internal static string LocalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         internal static string ProgramData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+        internal static string Documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
         internal static string Now = DateTime.Now.ToLongDateString() + " - " + DateTime.Now.ToLongTimeString();
         internal static string NowShort = (DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToShortTimeString()).Replace("/", "-").Replace(":", ".");
