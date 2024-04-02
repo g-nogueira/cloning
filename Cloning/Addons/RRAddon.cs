@@ -30,7 +30,7 @@ namespace Cloning.Addons
                     break;
                 case RrName.Bazarr:
                     Title = "Bazarr";
-                    Folders.Add(Utilities.ProgramData + @"\Bazarr\Backups");
+                    Folders.Add(Utilities.ProgramData + @"\Bazarr\backup");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(name), name, null);

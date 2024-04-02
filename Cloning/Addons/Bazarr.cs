@@ -1,14 +1,9 @@
 namespace Cloning.Addons
 {
-    public class Bazarr : Addon
+    public class Bazarr : RRAddon
     {
-        public Bazarr()
+        public Bazarr() : base(RrName.Bazarr)
         {
-            Title = "Bazarr";
-            Version = "";
-            Info = "Backup Bazarr settings";
-
-            Folders.Add(Utilities.ProgramData + @"\Bazarr\Backups");
         }
     }
 }
