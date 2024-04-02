@@ -1,70 +1,78 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Cloning.Addons;
+using Microsoft.Win32;
 
 namespace Cloning
 {
     public partial class MainForm : Form
     {
+        List<Addon> addons = new List<Addon>();
+        AnyDesk anydesk = new AnyDesk();
+        Bazarr bazarr = new Bazarr();
+        BSPlayer bs = new BSPlayer();
+        BitTorrent bt = new BitTorrent();
+        Skype carcinos = new Skype();
+        CCleaner cc = new CCleaner();
+        GoogleChrome chrome = new GoogleChrome();
+        ClassicShell cshell = new ClassicShell();
         internal string CurrentBackupPath = Options.DataFolder + Utilities.NowShort + "\\";
         internal string CurrentRestorePath = "";
-
-        List<Addon> addons = new List<Addon>();
-        internal List<Addon> selectedAddons = new List<Addon>();
-
-        SevenZip zip7 = new SevenZip();
-        AdobePhotoshop photoshop = new AdobePhotoshop();
-        AdobeReader reader = new AdobeReader();
-        AnyDesk anydesk = new AnyDesk();
-        BitTorrent bt = new BitTorrent();
-        BSPlayer bs = new BSPlayer();
-        CCleaner cc = new CCleaner();
-        ClassicShell cshell = new ClassicShell();
+        MozillaFirefox ff = new MozillaFirefox();
         FileZilla filezilla = new FileZilla();
         Foobar2000 foo = new Foobar2000();
-        GoogleChrome chrome = new GoogleChrome();
         IrfanView iview = new IrfanView();
         JDownloader2 jdownloader = new JDownloader2();
         LibreOffice libre = new LibreOffice();
         MalwarebytesAntiMalware malware = new MalwarebytesAntiMalware();
         MaxthonCloudBrowser maxthon = new MaxthonCloudBrowser();
-        MozillaFirefox ff = new MozillaFirefox();
-        MozillaThunderbird tb = new MozillaThunderbird();
         NotepadPlusPlus npp = new NotepadPlusPlus();
         OpenOffice open = new OpenOffice();
         OperaBrowser opera = new OperaBrowser();
+        SumatraPDF pdf = new SumatraPDF();
+        AdobePhotoshop photoshop = new AdobePhotoshop();
+        Plex plex = new Plex();
+        PowerToys powertoys = new PowerToys();
+        Prowlarr prowlarr = new Prowlarr();
         PuTTY putty = new PuTTY();
         qBitTorrent qbt = new qBitTorrent();
-        Skype carcinos = new Skype();
+        Radarr radarr = new Radarr();
+        WinRAR rar = new WinRAR();
+        AdobeReader reader = new AdobeReader();
+
+
+        bool SelectAllFlag = true;
+        internal List<Addon> selectedAddons = new List<Addon>();
+        Sonarr sonarr = new Sonarr();
         Speccy speccy = new Speccy();
         Steam steam = new Steam();
         SublimeText sublime = new SublimeText();
-        SumatraPDF pdf = new SumatraPDF();
+        MozillaThunderbird tb = new MozillaThunderbird();
+        TeraCopy teracopy = new TeraCopy();
         TeamSpeak ts = new TeamSpeak();
         TeamViewer tv = new TeamViewer();
-        TeraCopy teracopy = new TeraCopy();
         uTorrent ut = new uTorrent();
         VivaldiBrowser vivaldi = new VivaldiBrowser();
         VLCMediaPlayer vlc = new VLCMediaPlayer();
         Winamp winamp = new Winamp();
-        WinRAR rar = new WinRAR();
-        WinZip zip = new WinZip();
         WireShark ws = new WireShark();
+        WinZip zip = new WinZip();
 
-        bool SelectAllFlag = true;
+        SevenZip zip7 = new SevenZip();
+
+        public MainForm()
+        {
+            InitializeAddons();
+            InitializeComponent();
+            Options.ApplyTheme(this);
+        }
 
         private string GetOS()
         {
-            return (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "ProductName", "");
+            return (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
+                "ProductName", "");
         }
 
         private string GetBitness()
@@ -114,7 +122,7 @@ namespace Cloning
             addons.Add(bt);
             addons.Add(bs);
             addons.Add(cc);
-            addons.Add(cshell); 
+            addons.Add(cshell);
             addons.Add(filezilla);
             addons.Add(foo);
             addons.Add(chrome);
@@ -145,12 +153,18 @@ namespace Cloning
             addons.Add(rar);
             addons.Add(zip);
             addons.Add(ws);
+            addons.Add(bazarr);
+            addons.Add(prowlarr);
+            addons.Add(radarr);
+            addons.Add(sonarr);
+            addons.Add(plex);
+            addons.Add(powertoys);
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
             CheckForIllegalCrossThreadCalls = false;
-            
+
             Program._main = this;
             lblversion.Text = "Version: " + Program.GetCurrentVersionToString();
             lblos.Text = "Microsoft " + GetOS();
@@ -185,6 +199,7 @@ namespace Cloning
                 SelectAll(true);
                 linkLabel1.Text = "Deselect all";
             }
+
             if (!SelectAllFlag)
             {
                 SelectAll(false);
@@ -226,6 +241,7 @@ namespace Cloning
             {
                 ++count;
             }
+
             if (e.NewValue == CheckState.Unchecked)
             {
                 --count;
@@ -236,7 +252,6 @@ namespace Cloning
 
         private void button5_Click(object sender, EventArgs e)
         {
-            
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
