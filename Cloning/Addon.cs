@@ -15,9 +15,43 @@ namespace Cloning
         public string Info { get; set; }
         public string Version { get; set; }
 
-        public virtual bool IsInstalled() { return false; }
-        public virtual void Backup(string path) { }
-        public virtual void Restore(string path) { }
+        public ICollection<string> Folders { get; set; } = new List<string>();
+        public ICollection<string> Keys { get; set; } = new List<string>();
+
+        public virtual bool IsInstalled()
+        {
+            var b1 = Folders.Any(Directory.Exists);
+
+            var b2 = Keys.Any(Directory.Exists);
+
+            return b1 || b2;
+        }
+
+        public virtual void Backup(string path)
+        {
+            foreach (var k in Keys)
+            {
+                Utilities.PortRegistryKey(filePath: $"{path}{Title}.reg", k, false);
+            }
+
+            foreach (var f in Folders)
+            {
+                Utilities.CopyFolder(f, destination: $"{path}{Title}");
+            }
+        }
+
+        public virtual void Restore(string path)
+        {
+            foreach (var k in Keys)
+            {
+                Utilities.PortRegistryKey(filePath: $"{path}{Title}.reg", k, true);
+            }
+
+            foreach (var f in Folders)
+            {
+                Utilities.CopyFolder(source: $"{path}{Title}", f);
+            }
+        }
     }
 
     public class AnyDesk: Addon
